@@ -6,8 +6,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -16,6 +19,7 @@ public class HelloControler implements Initializable {
 
     @FXML
     private Button BtStart;
+
 
     private Stage primaryStage;
 
@@ -39,6 +43,8 @@ public class HelloControler implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

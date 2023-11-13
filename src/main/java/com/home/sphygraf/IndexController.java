@@ -1,24 +1,24 @@
 package com.home.sphygraf;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class IndexController implements Initializable {
 
 
     @FXML
-    private Button SelectImage;
+    private MenuItem SelectImage;
+    @FXML
+    private ImageView contenedorImagen;
     private Stage primaryStage;
 
     // Método para establecer el Stage
@@ -26,7 +26,21 @@ public class IndexController implements Initializable {
         this.primaryStage = primaryStage;
     }
 
+    @FXML
+    protected void seleccionarArchivo() {
+        // Configurar el cuadro de diálogo para seleccionar imágenes
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.gif"));
 
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        // Verificar si se seleccionó un archivo
+        if (selectedFile != null) {
+            // Cargar la imagen seleccionada en el ImageView
+            Image imagen = new Image(selectedFile.toURI().toString());
+            contenedorImagen.setImage(imagen);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
