@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -56,7 +59,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512, 0.7126948775055679" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
           <children>
@@ -68,20 +71,26 @@
                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
               </textFill>
             </Label>
+                  <CheckBox fx:id="BNcheckBox" layoutX="27.0" layoutY="69.0" mnemonicParsing="false" text="Blanco y Negro" />
+                  <CheckBox fx:id="HcheckBox" layoutX="27.0" layoutY="102.0" mnemonicParsing="false" text="Invertir horizontal" />
+                  <CheckBox fx:id="VcheckBox" layoutX="27.0" layoutY="135.0" mnemonicParsing="false" text="Invertir vertical" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
           <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+            <AnchorPane id="Content" fx:id="" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="406.0">
               <children>
                 <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <ImageView fx:id="imagenOriginal" fitHeight="519.0" fitWidth="364.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane>
+        <AnchorPane prefHeight="551.0" prefWidth="246.0">
           <children>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <ImageView fx:id="imagenModificada" fitHeight="527.0" fitWidth="235.0" layoutX="11.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="guardarBoton" layoutX="33.0" layoutY="464.0" mnemonicParsing="false" text="Guardar" />
           </children>
         </AnchorPane>
       </items>
