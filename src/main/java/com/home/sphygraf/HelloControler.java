@@ -1,5 +1,6 @@
 package com.home.sphygraf;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.home.sphygraf.db.JsonSerializable.objectMapper;
 
 public class HelloControler implements Initializable {
 
@@ -43,6 +46,6 @@ public class HelloControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        objectMapper.registerModule(new JavaTimeModule());
     }
 }

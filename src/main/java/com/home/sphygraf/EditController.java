@@ -1,5 +1,6 @@
 package com.home.sphygraf;
 
+import com.home.sphygraf.db.Memo;
 import com.home.sphygraf.task.EditImageTask;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class EditController implements Initializable {
@@ -150,7 +152,10 @@ public class EditController implements Initializable {
         // Guarda la BufferedImage en el archivo de destino
         if (archivoDestino != null) {
             try {
+                String fileNameWithExtension = archivoDestino.getName();
                 ImageIO.write(imagenEditadaBuffered, "png", archivoDestino);
+                Memo memo = new Memo(fileNameWithExtension,bAndW.isSelected(),invertColors.isSelected(),shineUp.isSelected(),InvertH.isSelected(),InvertV.isSelected(),applyBlurred.isSelected(), LocalDate.now());
+                memo.toJson();
             } catch (IOException e) {
                 e.printStackTrace();
             }
