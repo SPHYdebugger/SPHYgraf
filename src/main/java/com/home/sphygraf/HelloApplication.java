@@ -21,24 +21,25 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         //Cargar el fxml
         FXMLLoader uiLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-        //definir el controlador
+        //definir el controlador de la escena
         uiLoader.setController(new HelloControler());
         //Mostrar la escena
         Scene helloScene = new Scene(uiLoader.load());
         primaryStage.getIcons().add(new Image("C:\\Users\\sanph\\IdeaProjects\\SphyGraf\\src\\main\\resources\\com\\home\\sphygraf\\Diseno-sin-texto.jpg"));
+        primaryStage.setTitle("SPHYgraf V1.0");
         primaryStage.setScene(helloScene);
         primaryStage.show();
 
-        // Establecer el Stage en el controlador
-        HelloControler mainController = uiLoader.getController();
-        mainController.setPrimaryStage(primaryStage);
+        // Establecer el Stage en el controlador (primaryDtage)
+        HelloControler helloController = uiLoader.getController();
+        helloController.setPrimaryStage(primaryStage);
     }
 
 
 
     @Override
     public void stop() throws Exception {
-        System.out.println("Goodbye!");
+        System.out.println("Application finished");
         super.stop();
     }
 
