@@ -9,20 +9,20 @@
 
 <AnchorPane minWidth="1300.0" prefHeight="567.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="imagenOriginal" fitHeight="138.0" fitWidth="209.0" layoutX="29.0" layoutY="183.0" pickOnBounds="true" />
-      <CheckBox fx:id="blancoNegro" layoutX="65.0" layoutY="27.0" mnemonicParsing="false" text="blancoNegro" />
-      <CheckBox fx:id="InvertirH" layoutX="470.0" layoutY="27.0" mnemonicParsing="false" text="InvertirH" />
-      <CheckBox fx:id="InvertirV" layoutX="545.0" layoutY="27.0" mnemonicParsing="false" text="InvertirV" />
-      <CheckBox fx:id="invertirColores" layoutX="171.0" layoutY="27.0" mnemonicParsing="false" text="InvertirColor" />
-      <CheckBox fx:id="aumentarBrillo" layoutX="272.0" layoutY="27.0" mnemonicParsing="false" text="AumentarBrillo" />
-      <Button fx:id="Aplicar" layoutX="700.0" layoutY="23.0" mnemonicParsing="false" onAction="#aplicarFiltros" text="Aplicar" />
-      <ImageView fx:id="imagenFinal" fitHeight="138.0" fitWidth="209.0" layoutX="350.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" />
-      <ProgressBar fx:id="progreso" layoutX="101.0" layoutY="84.0" prefHeight="18.0" prefWidth="505.0" progress="0.0" />
+      <ImageView fx:id="originalImage" fitHeight="138.0" fitWidth="209.0" layoutX="29.0" layoutY="183.0" pickOnBounds="true" />
+      <CheckBox fx:id="bAndW" layoutX="65.0" layoutY="27.0" mnemonicParsing="false" text="BAndW" />
+      <CheckBox fx:id="InvertH" layoutX="470.0" layoutY="27.0" mnemonicParsing="false" text="InvertH" />
+      <CheckBox fx:id="InvertV" layoutX="545.0" layoutY="27.0" mnemonicParsing="false" text="InvertV" />
+      <CheckBox fx:id="invertColors" layoutX="171.0" layoutY="27.0" mnemonicParsing="false" text="InvertColors" />
+      <CheckBox fx:id="shineUp" layoutX="272.0" layoutY="27.0" mnemonicParsing="false" text="Shineup" />
+      <Button fx:id="Apply" layoutX="700.0" layoutY="23.0" mnemonicParsing="false" onAction="#applyFilters" text="Apply" />
+      <ImageView fx:id="finalImage" fitHeight="138.0" fitWidth="209.0" layoutX="350.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" />
+      <ProgressBar fx:id="progress" layoutX="101.0" layoutY="84.0" prefHeight="18.0" prefWidth="505.0" progress="0.0" />
       <Label layoutX="65.0" layoutY="139.0" text="Original" />
       <Label layoutX="545.0" layoutY="139.0" text="Final" />
       <Label fx:id="status" layoutX="642.0" layoutY="85.0" text="0%" />
-      <Button fx:id="cancelar" cancelButton="true" layoutX="775.0" layoutY="23.0" mnemonicParsing="false" text="Cancelar" />
-      <CheckBox fx:id="aplicarDifuminado" layoutX="385.0" layoutY="27.0" mnemonicParsing="false" text="Difuminar" />
+      <Button fx:id="cancelar" cancelButton="true" layoutX="775.0" layoutY="23.0" mnemonicParsing="false" text="Cancel" />
+      <CheckBox fx:id="applyBlurred" layoutX="385.0" layoutY="27.0" mnemonicParsing="false" text="Blurred" />
 
    </children>
 </AnchorPane>

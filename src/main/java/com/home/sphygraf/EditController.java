@@ -14,84 +14,84 @@ public class EditController implements Initializable {
 
 
     @FXML
-    private CheckBox blancoNegro;
+    private CheckBox bAndW;
     @FXML
-    private CheckBox InvertirH;
+    private CheckBox InvertH;
     @FXML
     private TabPane tpEditImage;
     @FXML
-    private ProgressBar progreso;
+    private ProgressBar progress;
 
-    public void setBlancoNegro(CheckBox blancoNegro) {
-        this.blancoNegro = blancoNegro;
+    public void setbAndW(CheckBox bAndW) {
+        this.bAndW = bAndW;
     }
 
-    public void setInvertirH(CheckBox invertirH) {
-        InvertirH = invertirH;
+    public void setInvertH(CheckBox invertH) {
+        this.InvertH = invertH;
     }
 
-    public void setInvertirV(CheckBox invertirV) {
-        InvertirV = invertirV;
+    public void setInvertV(CheckBox invertV) {
+        this.InvertV = invertV;
     }
 
-    public void setInvertirColores(CheckBox invertirColores) {
-        this.invertirColores = invertirColores;
+    public void setInvertColors(CheckBox invertColors) {
+        this.invertColors = invertColors;
     }
 
-    public void setAumentarBrillo(CheckBox aumentarBrillo) {
-        this.aumentarBrillo = aumentarBrillo;
+    public void setShineUp(CheckBox shineUp) {
+        this.shineUp = shineUp;
     }
 
-    public void setAplicarDifuminado(CheckBox aplicarDifuminado) {
-        this.aplicarDifuminado = aplicarDifuminado;
+    public void setApplyBlurred(CheckBox applyBlurred) {
+        this.applyBlurred = applyBlurred;
     }
 
     @FXML
-    private CheckBox InvertirV;
+    private CheckBox InvertV;
     @FXML
-    private CheckBox invertirColores;
+    private CheckBox invertColors;
     @FXML
-    private CheckBox aumentarBrillo;
+    private CheckBox shineUp;
     @FXML
-    private CheckBox aplicarDifuminado;
+    private CheckBox applyBlurred;
     @FXML
-    private Button Aplicar;
+    private Button Apply;
     @FXML
     private Label status;
     @FXML
-    private ImageView imagenOriginal;
+    private ImageView originalImage;
     @FXML
-    private ImageView imagenFinal;
+    private ImageView finalImage;
 
-    private Image imagenOriginalSeleccionada;
+    private Image originalImageSelected;
     private String pathOriginal;
-    private Image imagenEditada;
+    private Image editedImage;
 
-    public EditController(Image imagenOriginalSeleccionada, String pathOriginal) {
-        this.imagenOriginalSeleccionada = imagenOriginalSeleccionada;
+    public EditController(Image originalImageSelected, String pathOriginal) {
+        this.originalImageSelected = originalImageSelected;
         this.pathOriginal = pathOriginal;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imagenOriginal.setImage(imagenOriginalSeleccionada);
+        originalImage.setImage(originalImageSelected);
     }
 
     @FXML
-    protected void aplicarFiltros() {
+    protected void applyFilters() {
 
-        Image imagenOrigen = imagenOriginalSeleccionada;
+        Image imagenOrigen = originalImageSelected;
 
         // Configurar la tarea EditImageTask
-        EditImageTask editImageTask = new EditImageTask(imagenOrigen, blancoNegro.isSelected(), invertirColores.isSelected(), aumentarBrillo.isSelected(), aplicarDifuminado.isSelected(), InvertirH.isSelected(), InvertirV.isSelected(), pathOriginal);
+        EditImageTask editImageTask = new EditImageTask(imagenOrigen, bAndW.isSelected(), invertColors.isSelected(), shineUp.isSelected(), applyBlurred.isSelected(), InvertH.isSelected(), InvertV.isSelected(), pathOriginal);
 
         // Configurar la ProgressBar
-        progreso.progressProperty().bind(editImageTask.progressProperty());
+        progress.progressProperty().bind(editImageTask.progressProperty());
 
         // Configurar la acción al finalizar la tarea
         editImageTask.setOnSucceeded(event -> {
-            imagenEditada = editImageTask.getValue();
-            imagenFinal.setImage(imagenEditada);
+            editedImage = editImageTask.getValue();
+            finalImage.setImage(editedImage);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("La edición ha finalizado");
@@ -113,6 +113,7 @@ public class EditController implements Initializable {
 
     //TODO insertar boton de cancelar
     //TODO poder cerrar las pestañas
+    //TODO guardar imagen modificada
 
 
 
