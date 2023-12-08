@@ -19,29 +19,29 @@ import java.util.Scanner;
 public class MultiController implements Initializable {
 
     @FXML
-    private MenuItem seleccionarImagen;
+    private MenuItem selectImage;
     @FXML
-    private MenuItem seleccionarImagenes;
+    private MenuItem selectImages;
     @FXML
-    private Button seleccionarUna;
+    private Button selectOne;
     @FXML
-    private Button seleccionarMuchas;
+    private Button selectMulti;
     @FXML
-    private CheckBox blancoNegro;
+    private CheckBox bAndW;
     @FXML
-    private CheckBox invertirColores;
+    private CheckBox invertColors;
     @FXML
-    private CheckBox aumentarBrillo;
+    private CheckBox shineUp;
     @FXML
-    private CheckBox aplicarDifuminado;
+    private CheckBox applyBlurred;
     @FXML
-    private CheckBox InvertirH;
+    private CheckBox InvertH;
     @FXML
-    private CheckBox InvertirV;
+    private CheckBox InvertV;
     @FXML
     private TabPane tpEditImage;
     @FXML
-    private Button seleccionarMulti;
+    private Button applyMulti;
 
     private Stage primaryStage;
     private Image imagenOriginal;
@@ -50,7 +50,7 @@ public class MultiController implements Initializable {
     }
 
     @FXML
-    protected void seleccionarArchivo() {
+    protected void selectOneFile() {
         // Cuadro de diálogo para seleccionar imágenes
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.gif"));
@@ -87,20 +87,20 @@ public class MultiController implements Initializable {
 
     @FXML
     public void showOptions(){
-        blancoNegro.setVisible(true);
-        invertirColores.setVisible(true);
-        aumentarBrillo.setVisible(true);
-        aplicarDifuminado.setVisible(true);
-        InvertirH.setVisible(true);
-        InvertirV.setVisible(true);
-        seleccionarMulti.setVisible(true);
+        bAndW.setVisible(true);
+        invertColors.setVisible(true);
+        shineUp.setVisible(true);
+        applyBlurred.setVisible(true);
+        InvertH.setVisible(true);
+        InvertV.setVisible(true);
+        applyMulti.setVisible(true);
 
     }
 
     @FXML
     public void launchBatchEdit(ActionEvent event) throws Exception {
 
-        Stage stage = (Stage) this.seleccionarMulti.getScene().getWindow();
+        Stage stage = (Stage) this.applyMulti.getScene().getWindow();
         FileChooser fc = new FileChooser();
         File file = fc.showOpenDialog(stage);
         Scanner sc;
@@ -124,27 +124,27 @@ public class MultiController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (this.blancoNegro.isSelected()) {
-                    editController.setBlancoNegro(this.blancoNegro);
+                if (this.bAndW.isSelected()) {
+                    editController.setbAndW(this.bAndW);
                 }
-                if (this.invertirColores.isSelected()) {
-                    editController.setInvertirColores(this.invertirColores);
+                if (this.invertColors.isSelected()) {
+                    editController.setInvertColors(this.invertColors);
                 }
-                if (this.aumentarBrillo.isSelected()) {
-                    editController.setAumentarBrillo(this.aumentarBrillo);
+                if (this.shineUp.isSelected()) {
+                    editController.setShineUp(this.shineUp);
                 }
-                if (this.aplicarDifuminado.isSelected()) {
-                    editController.setAplicarDifuminado(this.aplicarDifuminado);
+                if (this.applyBlurred.isSelected()) {
+                    editController.setApplyBlurred(this.applyBlurred);
                 }
-                if (this.InvertirH.isSelected()) {
-                    editController.setInvertirH(this.InvertirH);
+                if (this.InvertH.isSelected()) {
+                    editController.setInvertH(this.InvertH);
                 }
-                if (this.InvertirV.isSelected()) {
-                    editController.setInvertirV(this.InvertirV);
+                if (this.InvertV.isSelected()) {
+                    editController.setInvertV(this.InvertV);
                 }
 
 
-                editController.aplicarFiltros();
+                editController.applyFilters();
 
             }
             sc.close();

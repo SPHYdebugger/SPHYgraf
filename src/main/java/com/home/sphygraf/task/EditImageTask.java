@@ -14,21 +14,21 @@ public class EditImageTask extends Task<Image> {
     private boolean invertHorizontal;
     private boolean invertVertical;
     private boolean invertColors;
-    private boolean aumentarBrillo;
-    private boolean aplicarDifuminado;
-    private Image imagenEditada;
+    private boolean shineUp;
+    private boolean applyBlurred;
+    private Image editedImage;
     private String pathOriginal;
 
     int radioDifuminado = 5;
 
 
 
-    public EditImageTask(Image originalImage, boolean applyBlackAndWhite, boolean invertColors, boolean aumentarBrillo, boolean aplicarDifuminado, boolean invertHorizontal, boolean invertVertical, String pathOriginal) {
+    public EditImageTask(Image originalImage, boolean applyBlackAndWhite, boolean invertColors, boolean shineUp, boolean applyBlurred, boolean invertHorizontal, boolean invertVertical, String pathOriginal) {
         this.originalImage = originalImage;
         this.applyBlackAndWhite = applyBlackAndWhite;
         this.invertColors = invertColors;
-        this.aumentarBrillo = aumentarBrillo;
-        this.aplicarDifuminado = aplicarDifuminado;
+        this.shineUp = shineUp;
+        this.applyBlurred = applyBlurred;
         this.invertHorizontal = invertHorizontal;
         this.invertVertical = invertVertical;
         this.pathOriginal = pathOriginal;
@@ -36,8 +36,8 @@ public class EditImageTask extends Task<Image> {
 
     @Override
     protected Image call() throws Exception {
-        // Lógica para editar la imagen según los parámetros proporcionados
-        Image editedImage = applyFilters(originalImage, applyBlackAndWhite, invertColors, aumentarBrillo, aplicarDifuminado, invertHorizontal, invertVertical);
+        // Editar la imagen
+        Image editedImage = applyFilters(originalImage, applyBlackAndWhite, invertColors, shineUp, applyBlurred, invertHorizontal, invertVertical);
 
 
         // Simular una tarea lenta de 1 minuto
@@ -55,36 +55,36 @@ public class EditImageTask extends Task<Image> {
         return editedImage;
     }
 
-    private Image applyFilters(Image originalImage, boolean applyBlackAndWhite,boolean invertColors, boolean aumentarBrillo, boolean aplicarDifuminado, boolean invertHorizontal, boolean invertVertical) {
+    private Image applyFilters(Image originalImage, boolean applyBlackAndWhite,boolean invertColors, boolean shineUp, boolean applyBlurred, boolean invertHorizontal, boolean invertVertical) {
 
-        imagenEditada = originalImage;
+        editedImage = originalImage;
 
         // Aplicar los filtros seleccionados
         if (applyBlackAndWhite) {
-            imagenEditada = applyBlancoYNegro(imagenEditada);
+            editedImage = applyBlackAndWhite(editedImage);
         }
         if (invertHorizontal) {
-            imagenEditada = invertirHorizontalmente(imagenEditada);
+            editedImage = invertHorizontal(editedImage);
         }
         if (invertVertical) {
-            imagenEditada = invertirVerticalmente(imagenEditada);
+            editedImage = invertVertical(editedImage);
         }
         if (invertColors) {
-            imagenEditada = invertirColores(imagenEditada);
+            editedImage = invertColors(editedImage);
         }
-        if (aumentarBrillo) {
+        if (shineUp) {
             double factorBrillo = 1.3;
-            imagenEditada = aumentarBrillo(imagenEditada, factorBrillo);
+            editedImage = shineUp(editedImage, factorBrillo);
         }
-        if (aplicarDifuminado) {
+        if (applyBlurred) {
             // Puedes ajustar el radioDifuminado según tus necesidades
-            imagenEditada = aplicarDifuminado(imagenEditada, radioDifuminado);
+            editedImage = applyBlurred(editedImage, radioDifuminado);
         }
 
-        return imagenEditada;
+        return editedImage;
     }
 
-    private Image applyBlancoYNegro(Image originalImage) {
+    private Image applyBlackAndWhite(Image originalImage) {
 
         // Crear una nueva imagen en blanco y negro
         WritableImage imagenBlancoNegro = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
@@ -104,7 +104,7 @@ public class EditImageTask extends Task<Image> {
         return imagenBlancoNegro;
     }
 
-    private WritableImage invertirColores(Image originalImage) {
+    private WritableImage invertColors(Image originalImage) {
         // Crear una nueva imagen con las mismas dimensiones
         WritableImage imagenInvertidaColores = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaColores.getPixelWriter();
@@ -129,7 +129,7 @@ public class EditImageTask extends Task<Image> {
     }
 
 
-    private WritableImage aumentarBrillo(Image originalImage, double factorBrillo) {
+    private WritableImage shineUp(Image originalImage, double factorBrillo) {
         // Crear una nueva imagen con las mismas dimensiones
         WritableImage imagenBrillante = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenBrillante.getPixelWriter();
@@ -158,7 +158,7 @@ public class EditImageTask extends Task<Image> {
         return Math.min(1.0, Math.max(0.0, valor));
     }
 
-    private WritableImage aplicarDifuminado(Image originalImage, int radioDifuminado) {
+    private WritableImage applyBlurred(Image originalImage, int radioDifuminado) {
         int width = (int) originalImage.getWidth();
         int height = (int) originalImage.getHeight();
 
@@ -183,11 +183,11 @@ public class EditImageTask extends Task<Image> {
 
     // Método auxiliar para obtener el color promedio de los píxeles circundantes
     private Color medioColor(PixelReader pixelReader, int x, int y, int width, int height, int radio) {
-        double totalRojo = 0.0;
-        double totalVerde = 0.0;
-        double totalAzul = 0.0;
+        double totalRed = 0.0;
+        double totalGreen = 0.0;
+        double totalBlue = 0.0;
 
-        int cantidadPixeles = 0;
+        int Pixels = 0;
 
         for (int i = -radio; i <= radio; i++) {
             for (int j = -radio; j <= radio; j++) {
@@ -197,23 +197,23 @@ public class EditImageTask extends Task<Image> {
                 // Verificar que el píxel esté dentro de los límites de la imagen
                 if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
                     Color colorVecino = pixelReader.getColor(newX, newY);
-                    totalRojo += colorVecino.getRed();
-                    totalVerde += colorVecino.getGreen();
-                    totalAzul += colorVecino.getBlue();
-                    cantidadPixeles++;
+                    totalRed += colorVecino.getRed();
+                    totalGreen += colorVecino.getGreen();
+                    totalBlue += colorVecino.getBlue();
+                    Pixels++;
                 }
             }
         }
 
         // Calcular el color promedio
-        double promedioRojo = totalRojo / cantidadPixeles;
-        double promedioVerde = totalVerde / cantidadPixeles;
-        double promedioAzul = totalAzul / cantidadPixeles;
+        double medRed = totalRed / Pixels;
+        double medGreen = totalGreen / Pixels;
+        double medBlue = totalBlue / Pixels;
 
-        return new Color(promedioRojo, promedioVerde, promedioAzul, 1.0);
+        return new Color(medRed, medGreen, medBlue, 1.0);
     }
 
-    private WritableImage invertirHorizontalmente(Image originalImage) {
+    private WritableImage invertHorizontal(Image originalImage) {
 
         WritableImage imagenInvertidaH = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaH.getPixelWriter();
@@ -230,7 +230,7 @@ public class EditImageTask extends Task<Image> {
         return imagenInvertidaH;
     }
 
-    private WritableImage invertirVerticalmente(Image originalImage) {
+    private WritableImage invertVertical(Image originalImage) {
 
         WritableImage imagenInvertidaV = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaV.getPixelWriter();

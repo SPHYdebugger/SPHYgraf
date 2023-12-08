@@ -26,8 +26,8 @@
             <Menu mnemonicParsing="false" text="File">
               <items>
                 <MenuItem mnemonicParsing="false" text="New" />
-                <MenuItem fx:id="seleccionarImagen" mnemonicParsing="false" onAction="#seleccionarArchivo" text="Open…" />
-                <MenuItem fx:id="seleccionarImagenes" mnemonicParsing="false" onAction="#showOptions" text="Open Multi" />
+                <MenuItem fx:id="selectImage" mnemonicParsing="false" onAction="#selectOneFile" text="Open…" />
+                <MenuItem fx:id="selectImages" mnemonicParsing="false" onAction="#showOptions" text="Open Multi" />
                 <Menu mnemonicParsing="false" text="Open Recent" />
                 <MenuItem mnemonicParsing="false" text="Close" />
                 <SeparatorMenuItem mnemonicParsing="false" />
@@ -65,15 +65,15 @@
         <AnchorPane>
           <children>
             <TabPane fx:id="tpEditImage" layoutX="6.0" layoutY="41.0" prefHeight="504.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" />
-            <Button fx:id="seleccionarUna" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleccionarArchivo" text="Add file" />
-            <Button fx:id="seleccionarMuchas" layoutX="92.0" layoutY="14.0" mnemonicParsing="false" onAction="#showOptions" text="Add multiFiles" />
-            <CheckBox fx:id="blancoNegro" layoutX="200.0" layoutY="18.0" mnemonicParsing="false" text="blancoNegro" visible="false" />
-            <CheckBox fx:id="InvertirH" layoutX="605.0" layoutY="18.0" mnemonicParsing="false" text="InvertirH" visible="false" />
-            <CheckBox fx:id="InvertirV" layoutX="680.0" layoutY="18.0" mnemonicParsing="false" text="InvertirV" visible="false" />
-            <CheckBox fx:id="invertirColores" layoutX="306.0" layoutY="18.0" mnemonicParsing="false" text="InvertirColor" visible="false" />
-            <CheckBox fx:id="aumentarBrillo" layoutX="407.0" layoutY="18.0" mnemonicParsing="false" text="AumentarBrillo" visible="false" />
-            <CheckBox fx:id="aplicarDifuminado" layoutX="520.0" layoutY="18.0" mnemonicParsing="false" text="Difuminar" visible="false" />
-            <Button fx:id="seleccionarMulti" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#launchBatchEdit" text="Select files" visible="false" />
+            <Button fx:id="selectOne" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectOneFile" text="Add file" />
+            <Button fx:id="selectMulti" layoutX="92.0" layoutY="14.0" mnemonicParsing="false" onAction="#showOptions" text="Add multiFiles" />
+            <CheckBox fx:id="bAndW" layoutX="200.0" layoutY="18.0" mnemonicParsing="false" text="BAndW" visible="false" />
+            <CheckBox fx:id="InvertH" layoutX="605.0" layoutY="18.0" mnemonicParsing="false" text="InvertH" visible="false" />
+            <CheckBox fx:id="InvertV" layoutX="680.0" layoutY="18.0" mnemonicParsing="false" text="InvertV" visible="false" />
+            <CheckBox fx:id="invertColors" layoutX="306.0" layoutY="18.0" mnemonicParsing="false" text="InvertColors" visible="false" />
+            <CheckBox fx:id="shineUp" layoutX="407.0" layoutY="18.0" mnemonicParsing="false" text="ShineUp" visible="false" />
+            <CheckBox fx:id="applyBlurred" layoutX="520.0" layoutY="18.0" mnemonicParsing="false" text="Blurred" visible="false" />
+            <Button fx:id="applyMulti" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#launchBatchEdit" text="Select files" visible="false" />
           </children>
         </AnchorPane>
         <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
