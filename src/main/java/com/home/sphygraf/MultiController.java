@@ -25,6 +25,8 @@ public class MultiController implements Initializable {
     @FXML
     private Button seleccionarUna;
     @FXML
+    private Button seleccionarMuchas;
+    @FXML
     private CheckBox blancoNegro;
     @FXML
     private CheckBox invertirColores;
@@ -38,6 +40,8 @@ public class MultiController implements Initializable {
     private CheckBox InvertirV;
     @FXML
     private TabPane tpEditImage;
+    @FXML
+    private Button seleccionarMulti;
 
     private Stage primaryStage;
     private Image imagenOriginal;
@@ -81,7 +85,73 @@ public class MultiController implements Initializable {
         }
     }
 
+    @FXML
+    public void showOptions(){
+        blancoNegro.setVisible(true);
+        invertirColores.setVisible(true);
+        aumentarBrillo.setVisible(true);
+        aplicarDifuminado.setVisible(true);
+        InvertirH.setVisible(true);
+        InvertirV.setVisible(true);
+        seleccionarMulti.setVisible(true);
 
+    }
+
+    @FXML
+    public void launchBatchEdit(ActionEvent event) throws Exception {
+
+        Stage stage = (Stage) this.seleccionarMulti.getScene().getWindow();
+        FileChooser fc = new FileChooser();
+        File file = fc.showOpenDialog(stage);
+        Scanner sc;
+        try {
+            sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String pathText = sc.nextLine();
+                System.out.println(pathText);
+
+                // Cargar la imagen desde el archivo
+                File imageFile = new File(pathText);
+                Image image = new Image(imageFile.toURI().toString());
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("editImage.fxml"));
+                EditController editController = new EditController(image, pathText);
+                loader.setController(editController);
+                String tabName = pathText.substring(pathText.lastIndexOf("/") + 1);
+
+                try {
+                    tpEditImage.getTabs().add(new Tab(tabName, loader.load()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (this.blancoNegro.isSelected()) {
+                    editController.setBlancoNegro(this.blancoNegro);
+                }
+                if (this.invertirColores.isSelected()) {
+                    editController.setInvertirColores(this.invertirColores);
+                }
+                if (this.aumentarBrillo.isSelected()) {
+                    editController.setAumentarBrillo(this.aumentarBrillo);
+                }
+                if (this.aplicarDifuminado.isSelected()) {
+                    editController.setAplicarDifuminado(this.aplicarDifuminado);
+                }
+                if (this.InvertirH.isSelected()) {
+                    editController.setInvertirH(this.InvertirH);
+                }
+                if (this.InvertirV.isSelected()) {
+                    editController.setInvertirV(this.InvertirV);
+                }
+
+
+                editController.aplicarFiltros();
+
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

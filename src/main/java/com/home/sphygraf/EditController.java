@@ -113,6 +113,7 @@ public class EditController implements Initializable {
 
     //TODO insertar boton de cancelar
     //TODO poder cerrar las pestañas
+    //TODO guardar imagen modificada
 
 
 
