@@ -4,14 +4,9 @@ import com.home.sphygraf.task.EditImageTask;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,35 +21,7 @@ public class EditController implements Initializable {
     private TabPane tpEditImage;
     @FXML
     private ProgressBar progreso;
-    @FXML
-    private CheckBox InvertirV;
-    @FXML
-    private CheckBox invertirColores;
-    @FXML
-    private CheckBox aumentarBrillo;
-    @FXML
-    private CheckBox aplicarDifuminado;
-    @FXML
-    private Button Aplicar;
-    @FXML
-    private Button cancelar;
-    @FXML
-    private Button guardarImagen;
-    @FXML
-    private Label status;
-    @FXML
-    private ImageView imagenOriginal;
-    @FXML
-    private ImageView imagenFinal;
 
-    private Image imagenOriginalSeleccionada;
-    private String pathOriginal;
-    private Image imagenEditada;
-
-    public EditController(Image imagenOriginalSeleccionada, String pathOriginal) {
-        this.imagenOriginalSeleccionada = imagenOriginalSeleccionada;
-        this.pathOriginal = pathOriginal;
-    }
     public void setBlancoNegro(CheckBox blancoNegro) {
         this.blancoNegro = blancoNegro;
     }
@@ -79,6 +46,31 @@ public class EditController implements Initializable {
         this.aplicarDifuminado = aplicarDifuminado;
     }
 
+    @FXML
+    private CheckBox InvertirV;
+    @FXML
+    private CheckBox invertirColores;
+    @FXML
+    private CheckBox aumentarBrillo;
+    @FXML
+    private CheckBox aplicarDifuminado;
+    @FXML
+    private Button Aplicar;
+    @FXML
+    private Label status;
+    @FXML
+    private ImageView imagenOriginal;
+    @FXML
+    private ImageView imagenFinal;
+
+    private Image imagenOriginalSeleccionada;
+    private String pathOriginal;
+    private Image imagenEditada;
+
+    public EditController(Image imagenOriginalSeleccionada, String pathOriginal) {
+        this.imagenOriginalSeleccionada = imagenOriginalSeleccionada;
+        this.pathOriginal = pathOriginal;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,7 +79,7 @@ public class EditController implements Initializable {
 
     @FXML
     protected void aplicarFiltros() {
-        // Obtener la imagen original seleccionada
+
         Image imagenOrigen = imagenOriginalSeleccionada;
 
         // Configurar la tarea EditImageTask
@@ -101,23 +93,17 @@ public class EditController implements Initializable {
             imagenEditada = editImageTask.getValue();
             imagenFinal.setImage(imagenEditada);
 
-            guardarImagen.setVisible(true);
-
-
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("La edición ha finalizado");
-                    alert.show();
-                    //TODO mostrar el nombre del archivo
-
-            // Actualizar la visibilidad del botón
-            // Aquí deberías tener la lógica para actualizar la visibilidad del botón
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("La edición ha finalizado");
+            alert.show();
+            //TODO mostrar el nombre del archivo
 
         });
 
         // Configurar la acción al cambiar el mensaje de la tarea
         editImageTask.messageProperty().addListener((observable, oldMessage, newMessage) -> {
-            // Actualizar el mensaje en algún componente visual si es necesario
-            // Por ejemplo, podrías mostrar el mensaje en un Label (status)
+
+            // Actualizar el mensaje
             status.setText(newMessage);
         });
 
@@ -126,6 +112,8 @@ public class EditController implements Initializable {
     }
 
     //TODO insertar boton de cancelar
+    //TODO poder cerrar las pestañas
 
-    //TODO guardar imagen
+
+
 }

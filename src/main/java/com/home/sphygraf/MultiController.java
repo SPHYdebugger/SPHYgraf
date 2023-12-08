@@ -1,5 +1,6 @@
 package com.home.sphygraf;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,16 +10,20 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
-public class IndexController implements Initializable {
+public class MultiController implements Initializable {
 
     @FXML
     private MenuItem seleccionarImagen;
-
-    private Image imagenOriginal;
+    @FXML
+    private MenuItem seleccionarImagenes;
+    @FXML
+    private Button seleccionarUna;
     @FXML
     private CheckBox blancoNegro;
     @FXML
@@ -32,19 +37,17 @@ public class IndexController implements Initializable {
     @FXML
     private CheckBox InvertirV;
     @FXML
-    private Button seleccionarMulti;
-    @FXML
     private TabPane tpEditImage;
 
     private Stage primaryStage;
-
+    private Image imagenOriginal;
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
     @FXML
     protected void seleccionarArchivo() {
-        // Abrir la ventana para seleccionar imágenes
+        // Cuadro de diálogo para seleccionar imágenes
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.gif"));
 
@@ -62,8 +65,6 @@ public class IndexController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("editImage.fxml"));
             loader.setController(new EditController(imageTab, selectedFile.getPath()));
 
-
-
             try {
                 // Establecer el contenido de la pestaña
                 newTab.setContent(loader.load());
@@ -79,6 +80,7 @@ public class IndexController implements Initializable {
             }
         }
     }
+
 
 
     @Override

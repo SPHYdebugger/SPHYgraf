@@ -26,9 +26,9 @@ public class HelloControler implements Initializable {
     protected void startApp() {
         try {
             //cargar el fxml (Escena)
-            FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("index.fxml"));
+            FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("multi.fxml"));
             // definir el controlador
-            secondLoader.setController(new IndexController());
+            secondLoader.setController(new MultiController());
             //cargar la escena
             Scene indexScene = new Scene(secondLoader.load());
             primaryStage.setScene(indexScene);

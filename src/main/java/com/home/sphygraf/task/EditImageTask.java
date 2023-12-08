@@ -42,7 +42,7 @@ public class EditImageTask extends Task<Image> {
 
         // Simular una tarea lenta de 1 minuto
         for (int i = 0; i < 60; i++) {
-            Thread.sleep(1000);  // Esperar 1 segundo
+            Thread.sleep(100);  // Esperar 1 segundo
             double progress = (i + 1) * 100.0 / 60.0;
             updateProgress(i + 1, 60);
             updateMessage(String.format("%.2f%%", progress));
@@ -57,10 +57,7 @@ public class EditImageTask extends Task<Image> {
 
     private Image applyFilters(Image originalImage, boolean applyBlackAndWhite,boolean invertColors, boolean aumentarBrillo, boolean aplicarDifuminado, boolean invertHorizontal, boolean invertVertical) {
 
-
-
         imagenEditada = originalImage;
-
 
         // Aplicar los filtros seleccionados
         if (applyBlackAndWhite) {
@@ -89,7 +86,6 @@ public class EditImageTask extends Task<Image> {
 
     private Image applyBlancoYNegro(Image originalImage) {
 
-
         // Crear una nueva imagen en blanco y negro
         WritableImage imagenBlancoNegro = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenBlancoNegro.getPixelWriter();
@@ -113,17 +109,15 @@ public class EditImageTask extends Task<Image> {
         WritableImage imagenInvertidaColores = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaColores.getPixelWriter();
 
-        // Recorrer cada píxel y invertir sus componentes de color
+        // invertir sus colores
         for (int y = 0; y < originalImage.getHeight(); y++) {
             for (int x = 0; x < originalImage.getWidth(); x++) {
                 Color colorOriginal = originalImage.getPixelReader().getColor(x, y);
 
-                // Invertir los componentes de color
                 double nuevoRojo = 1.0 - colorOriginal.getRed();
                 double nuevoVerde = 1.0 - colorOriginal.getGreen();
                 double nuevoAzul = 1.0 - colorOriginal.getBlue();
 
-                // Crear el nuevo color invertido
                 Color nuevoColor = new Color(nuevoRojo, nuevoVerde, nuevoAzul, colorOriginal.getOpacity());
 
                 // Escribir el nuevo color en la imagen invertida
@@ -140,17 +134,15 @@ public class EditImageTask extends Task<Image> {
         WritableImage imagenBrillante = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenBrillante.getPixelWriter();
 
-        // Recorrer cada píxel y aumentar su brillo
+        // Aumentar el brillo
         for (int y = 0; y < originalImage.getHeight(); y++) {
             for (int x = 0; x < originalImage.getWidth(); x++) {
                 Color colorOriginal = originalImage.getPixelReader().getColor(x, y);
 
-                // Aumentar el brillo multiplicando cada componente de color por el factor
-                double nuevoRojo = clamp(colorOriginal.getRed() * factorBrillo);
-                double nuevoVerde = clamp(colorOriginal.getGreen() * factorBrillo);
-                double nuevoAzul = clamp(colorOriginal.getBlue() * factorBrillo);
+                double nuevoRojo = shine(colorOriginal.getRed() * factorBrillo);
+                double nuevoVerde = shine(colorOriginal.getGreen() * factorBrillo);
+                double nuevoAzul = shine(colorOriginal.getBlue() * factorBrillo);
 
-                // Crear el nuevo color con brillo aumentado
                 Color nuevoColor = new Color(nuevoRojo, nuevoVerde, nuevoAzul, colorOriginal.getOpacity());
 
                 // Escribir el nuevo color en la imagen con brillo aumentado
@@ -161,7 +153,8 @@ public class EditImageTask extends Task<Image> {
         return imagenBrillante;
     }
 
-    private double clamp(double valor) {
+
+    private double shine(double valor) {
         return Math.min(1.0, Math.max(0.0, valor));
     }
 
@@ -174,11 +167,11 @@ public class EditImageTask extends Task<Image> {
         PixelReader pixelReader = originalImage.getPixelReader();
         PixelWriter pixelWriter = imagenDifuminada.getPixelWriter();
 
-        // Recorrer cada píxel y aplicar el difuminado
+        // Aplicar el difuminado
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                // Obtener el color promedio de los píxeles circundantes
-                Color nuevoColor = obtenerColorPromedio(pixelReader, x, y, width, height, radioDifuminado);
+
+                Color nuevoColor = medioColor(pixelReader, x, y, width, height, radioDifuminado);
 
                 // Escribir el nuevo color en la imagen difuminada
                 pixelWriter.setColor(x, y, nuevoColor);
@@ -189,14 +182,13 @@ public class EditImageTask extends Task<Image> {
     }
 
     // Método auxiliar para obtener el color promedio de los píxeles circundantes
-    private Color obtenerColorPromedio(PixelReader pixelReader, int x, int y, int width, int height, int radio) {
+    private Color medioColor(PixelReader pixelReader, int x, int y, int width, int height, int radio) {
         double totalRojo = 0.0;
         double totalVerde = 0.0;
         double totalAzul = 0.0;
 
         int cantidadPixeles = 0;
 
-        // Recorrer los píxeles dentro del radio especificado
         for (int i = -radio; i <= radio; i++) {
             for (int j = -radio; j <= radio; j++) {
                 int newX = x + i;
@@ -222,7 +214,7 @@ public class EditImageTask extends Task<Image> {
     }
 
     private WritableImage invertirHorizontalmente(Image originalImage) {
-        // Crear una nueva imagen invertida horizontalmente
+
         WritableImage imagenInvertidaH = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaH.getPixelWriter();
 
@@ -239,7 +231,7 @@ public class EditImageTask extends Task<Image> {
     }
 
     private WritableImage invertirVerticalmente(Image originalImage) {
-        // Crear una nueva imagen invertida verticalmente
+
         WritableImage imagenInvertidaV = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaV.getPixelWriter();
 

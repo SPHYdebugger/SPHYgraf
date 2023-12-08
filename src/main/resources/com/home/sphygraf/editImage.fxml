@@ -23,6 +23,6 @@
       <Label fx:id="status" layoutX="642.0" layoutY="85.0" text="0%" />
       <Button fx:id="cancelar" cancelButton="true" layoutX="775.0" layoutY="23.0" mnemonicParsing="false" text="Cancelar" />
       <CheckBox fx:id="aplicarDifuminado" layoutX="385.0" layoutY="27.0" mnemonicParsing="false" text="Difuminar" />
-      <Button fx:id="guardarImagen" layoutX="700.0" layoutY="135.0" mnemonicParsing="false" text="Guardar" visible="false" />
+
    </children>
 </AnchorPane>
