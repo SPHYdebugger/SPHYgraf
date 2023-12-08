@@ -50,6 +50,7 @@ public class EditController implements Initializable {
     private Image originalImageSelected;
     private String pathOriginal;
     private Image editedImage;
+    EditImageTask editImageTask;
 
     public void setbAndW(CheckBox bAndW) {
         this.bAndW = bAndW;
@@ -91,9 +92,11 @@ public class EditController implements Initializable {
         Image imagenOrigen = originalImageSelected;
 
         // Configurar la tarea EditImageTask
-        EditImageTask editImageTask = new EditImageTask(imagenOrigen, bAndW.isSelected(), invertColors.isSelected(), shineUp.isSelected(), applyBlurred.isSelected(), InvertH.isSelected(), InvertV.isSelected(), pathOriginal);
+        editImageTask = new EditImageTask(imagenOrigen, bAndW.isSelected(), invertColors.isSelected(), shineUp.isSelected(), applyBlurred.isSelected(), InvertH.isSelected(), InvertV.isSelected(), pathOriginal);
 
         // Configurar la ProgressBar
+        status.setVisible(true);
+        progress.setVisible(true);
         progress.progressProperty().bind(editImageTask.progressProperty());
 
         // Configurar la acción al finalizar la tarea
@@ -121,8 +124,6 @@ public class EditController implements Initializable {
     }
 
     //TODO insertar boton de cancelar
-    //TODO poder cerrar las pestañas
-
 
     @FXML
     public void saveImage() throws IOException {
@@ -170,6 +171,25 @@ public class EditController implements Initializable {
         System.arraycopy(buffer, 0, dataBuffer.getData(), 0, buffer.length);
 
         return bufferedImage;
+    }
+
+    @FXML
+    protected void cancelFilters() {
+        // Anula los filtros seleccionados
+        bAndW.setSelected(false);
+        invertColors.setSelected(false);
+        shineUp.setSelected(false);
+        applyBlurred.setSelected(false);
+        InvertH.setSelected(false);
+        InvertV.setSelected(false);
+
+
+        finalImage.setImage(null);
+        saveImage.setVisible(false);
+        editImageTask.cancel();
+        progress.setVisible(false);
+        status.setVisible(false);
+
     }
 
 }
