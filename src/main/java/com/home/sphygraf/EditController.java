@@ -154,7 +154,7 @@ public class EditController implements Initializable {
             try {
                 String fileNameWithExtension = archivoDestino.getName();
                 ImageIO.write(imagenEditadaBuffered, "png", archivoDestino);
-                Memo memo = new Memo(fileNameWithExtension,bAndW.isSelected(),invertColors.isSelected(),shineUp.isSelected(),InvertH.isSelected(),InvertV.isSelected(),applyBlurred.isSelected(), LocalDate.now());
+                Memo memo = new Memo(fileNameWithExtension,bAndW.isSelected(),invertColors.isSelected(),shineUp.isSelected(),InvertH.isSelected(),InvertV.isSelected(),applyBlurred.isSelected());
                 memo.toJson();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -28,7 +28,7 @@
                 <MenuItem mnemonicParsing="false" text="New" />
                 <MenuItem fx:id="selectImage" mnemonicParsing="false" onAction="#selectOneFile" text="Open…" />
                 <MenuItem fx:id="selectImages" mnemonicParsing="false" onAction="#showOptions" text="Open Multi" />
-                <Menu mnemonicParsing="false" text="Open Recent" />
+                <MenuItem fx:id="history" mnemonicParsing="false" onAction="#showHistory" text="History" />
                 <MenuItem mnemonicParsing="false" text="Close" />
                 <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" text="Save" />
