@@ -45,7 +45,7 @@ public class EditImageTask extends Task<Image> {
             Thread.sleep(100);  // Esperar 1 segundo
             double progress = (i + 1) * 100.0 / 60.0;
             updateProgress(i + 1, 60);
-            updateMessage(String.format("%.2f%%", progress));
+            updateMessage(String.format("%.1f%%", progress));
         }
 
         // Actualizar el progreso y mensaje

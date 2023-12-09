@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -152,9 +153,34 @@ public class MultiController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    protected void showHistory() {
+        try {
+            // Cargar el archivo FXML de la vista del historial
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("list.fxml"));
+            VBox historyView = loader.load();
+
+            // Crear una nueva pestaña
+            Tab newTab = new Tab("Historial");
+
+            // Configurar el contenido de la pestaña
+            newTab.setContent(historyView);
+
+            // Agregar la nueva pestaña al TabPane
+            tpEditImage.getTabs().add(newTab);
+
+            // Seleccionar la nueva pestaña
+            tpEditImage.getSelectionModel().select(newTab);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.tpEditImage.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
     }
 }
