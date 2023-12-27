@@ -7,6 +7,7 @@ module com.home.sphygraf {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires javafx.swing;
 
     opens com.home.sphygraf to javafx.fxml;
     exports com.home.sphygraf;

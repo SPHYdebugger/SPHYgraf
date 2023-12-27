@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.stage.FileChooser;
+import javafx.embed.swing.SwingFXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -163,19 +164,7 @@ public class EditController implements Initializable {
     }
 
     public static BufferedImage toBufferedImage(Image fxImage) {
-        int width = (int) fxImage.getWidth();
-        int height = (int) fxImage.getHeight();
-
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        int[] buffer = new int[width * height];
-
-        PixelReader pixelReader = fxImage.getPixelReader();
-        pixelReader.getPixels(0, 0, width, height, javafx.scene.image.PixelFormat.getIntArgbInstance(), buffer, 0, width);
-
-        DataBufferInt dataBuffer = ((DataBufferInt) bufferedImage.getRaster().getDataBuffer());
-        System.arraycopy(buffer, 0, dataBuffer.getData(), 0, buffer.length);
-
-        return bufferedImage;
+        return SwingFXUtils.fromFXImage(fxImage, null);
     }
 
     @FXML
