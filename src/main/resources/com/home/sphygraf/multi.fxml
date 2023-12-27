@@ -73,6 +73,7 @@
             <CheckBox fx:id="invertColors" layoutX="306.0" layoutY="18.0" mnemonicParsing="false" text="InvertColors" visible="false" />
             <CheckBox fx:id="shineUp" layoutX="407.0" layoutY="18.0" mnemonicParsing="false" text="ShineUp" visible="false" />
             <CheckBox fx:id="applyBlurred" layoutX="520.0" layoutY="18.0" mnemonicParsing="false" text="Blurred" visible="false" />
+            <Button fx:id="applyDirectory" layoutX="894.0" layoutY="14.0" mnemonicParsing="false" onAction="#launchDirectoryEdit" text="Select directory" visible="false" />
             <Button fx:id="applyMulti" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#launchBatchEdit" text="Select files" visible="false" />
           </children>
         </AnchorPane>

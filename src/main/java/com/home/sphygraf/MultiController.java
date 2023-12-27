@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,6 +28,7 @@ public class MultiController implements Initializable {
     private Button selectOne;
     @FXML
     private Button selectMulti;
+
     @FXML
     private CheckBox bAndW;
     @FXML
@@ -43,6 +45,8 @@ public class MultiController implements Initializable {
     private TabPane tpEditImage;
     @FXML
     private Button applyMulti;
+    @FXML
+    private Button applyDirectory;
 
     private Stage primaryStage;
     private Image imagenOriginal;
@@ -95,6 +99,7 @@ public class MultiController implements Initializable {
         InvertH.setVisible(true);
         InvertV.setVisible(true);
         applyMulti.setVisible(true);
+        applyDirectory.setVisible(true);
 
     }
 
@@ -153,6 +158,67 @@ public class MultiController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void launchDirectoryEdit(ActionEvent event) {
+        Stage stage = (Stage) this.applyMulti.getScene().getWindow();
+
+        DirectoryChooser dc = new DirectoryChooser();
+        File selectedDirectory = dc.showDialog(stage);
+
+        if (selectedDirectory != null) {
+            // Rellenar un array con  imagenes png y jpg
+            File[] imageFiles = selectedDirectory.listFiles((dir, name) -> name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".jpg"));
+
+            if (imageFiles != null) {
+                for (File imageFile : imageFiles) {
+                    processImageFile(imageFile);
+                }
+            }
+        }
+    }
+
+    private void processImageFile(File imageFile) {
+        String pathText = imageFile.getAbsolutePath();
+        System.out.println(pathText);
+
+        // Cargar la imagen desde el archivo
+        Image image = new Image(imageFile.toURI().toString());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("editImage.fxml"));
+        EditController editController = new EditController(image, pathText);
+        loader.setController(editController);
+        String tabName = imageFile.getName();
+
+        try {
+            tpEditImage.getTabs().add(new Tab(tabName, loader.load()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (this.bAndW.isSelected()) {
+            editController.setbAndW(this.bAndW);
+        }
+        if (this.invertColors.isSelected()) {
+            editController.setInvertColors(this.invertColors);
+        }
+        if (this.shineUp.isSelected()) {
+            editController.setShineUp(this.shineUp);
+        }
+        if (this.applyBlurred.isSelected()) {
+            editController.setApplyBlurred(this.applyBlurred);
+        }
+        if (this.InvertH.isSelected()) {
+            editController.setInvertH(this.InvertH);
+        }
+        if (this.InvertV.isSelected()) {
+            editController.setInvertV(this.InvertV);
+        }
+
+        editController.applyFilters();
+    }
+
+
+
     @FXML
     protected void showHistory() {
         try {
