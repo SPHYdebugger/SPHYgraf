@@ -39,7 +39,6 @@ public class EditImageTask extends Task<Image> {
         // Editar la imagen
         Image editedImage = applyFilters(originalImage, applyBlackAndWhite, invertColors, shineUp, applyBlurred, invertHorizontal, invertVertical);
 
-
         // Simular una tarea lenta de 1 minuto
         for (int i = 0; i < 60; i++) {
             Thread.sleep(100);  // Esperar 1 segundo
@@ -59,7 +58,6 @@ public class EditImageTask extends Task<Image> {
 
         editedImage = originalImage;
 
-        // Aplicar los filtros seleccionados
         if (applyBlackAndWhite) {
             editedImage = applyBlackAndWhite(editedImage);
         }
@@ -77,16 +75,17 @@ public class EditImageTask extends Task<Image> {
             editedImage = shineUp(editedImage, factorBrillo);
         }
         if (applyBlurred) {
-            // Puedes ajustar el radioDifuminado según tus necesidades
             editedImage = applyBlurred(editedImage, radioDifuminado);
         }
 
         return editedImage;
     }
 
+
+
     private Image applyBlackAndWhite(Image originalImage) {
 
-        // Crear una nueva imagen en blanco y negro
+        // Crear una nueva imagen en blanco y negro con el mismo tamaño que la original
         WritableImage imagenBlancoNegro = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenBlancoNegro.getPixelWriter();
 
@@ -97,7 +96,6 @@ public class EditImageTask extends Task<Image> {
                 double promedio = (colorOriginal.getRed() + colorOriginal.getGreen() + colorOriginal.getBlue()) / 3.0;
                 Color nuevoColor = Color.color(promedio, promedio, promedio);
                 pixelWriter.setColor(x, y, nuevoColor);
-
             }
         }
 
@@ -105,7 +103,6 @@ public class EditImageTask extends Task<Image> {
     }
 
     private WritableImage invertColors(Image originalImage) {
-        // Crear una nueva imagen con las mismas dimensiones
         WritableImage imagenInvertidaColores = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenInvertidaColores.getPixelWriter();
 
@@ -120,7 +117,6 @@ public class EditImageTask extends Task<Image> {
 
                 Color nuevoColor = new Color(nuevoRojo, nuevoVerde, nuevoAzul, colorOriginal.getOpacity());
 
-                // Escribir el nuevo color en la imagen invertida
                 pixelWriter.setColor(x, y, nuevoColor);
             }
         }
@@ -130,11 +126,9 @@ public class EditImageTask extends Task<Image> {
 
 
     private WritableImage shineUp(Image originalImage, double factorBrillo) {
-        // Crear una nueva imagen con las mismas dimensiones
         WritableImage imagenBrillante = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelWriter pixelWriter = imagenBrillante.getPixelWriter();
 
-        // Aumentar el brillo
         for (int y = 0; y < originalImage.getHeight(); y++) {
             for (int x = 0; x < originalImage.getWidth(); x++) {
                 Color colorOriginal = originalImage.getPixelReader().getColor(x, y);
@@ -145,7 +139,6 @@ public class EditImageTask extends Task<Image> {
 
                 Color nuevoColor = new Color(nuevoRojo, nuevoVerde, nuevoAzul, colorOriginal.getOpacity());
 
-                // Escribir el nuevo color en la imagen con brillo aumentado
                 pixelWriter.setColor(x, y, nuevoColor);
             }
         }
@@ -159,21 +152,17 @@ public class EditImageTask extends Task<Image> {
     }
 
     private WritableImage applyBlurred(Image originalImage, int radioDifuminado) {
-        int width = (int) originalImage.getWidth();
-        int height = (int) originalImage.getHeight();
 
-        // Crear una nueva imagen con las mismas dimensiones
-        WritableImage imagenDifuminada = new WritableImage(width, height);
+        WritableImage imagenDifuminada = new WritableImage((int) originalImage.getWidth(), (int) originalImage.getHeight());
         PixelReader pixelReader = originalImage.getPixelReader();
         PixelWriter pixelWriter = imagenDifuminada.getPixelWriter();
 
         // Aplicar el difuminado
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int y = 0; y < (int) originalImage.getHeight(); y++) {
+            for (int x = 0; x < (int) originalImage.getWidth(); x++) {
 
-                Color nuevoColor = medioColor(pixelReader, x, y, width, height, radioDifuminado);
+                Color nuevoColor = medioColor(pixelReader, x, y, (int) originalImage.getWidth(), (int) originalImage.getHeight(), radioDifuminado);
 
-                // Escribir el nuevo color en la imagen difuminada
                 pixelWriter.setColor(x, y, nuevoColor);
             }
         }
@@ -181,7 +170,7 @@ public class EditImageTask extends Task<Image> {
         return imagenDifuminada;
     }
 
-    // Método auxiliar para obtener el color promedio de los píxeles circundantes
+    //obtener el color de los píxeles circundantes
     private Color medioColor(PixelReader pixelReader, int x, int y, int width, int height, int radio) {
         double totalRed = 0.0;
         double totalGreen = 0.0;
@@ -194,7 +183,6 @@ public class EditImageTask extends Task<Image> {
                 int newX = x + i;
                 int newY = y + j;
 
-                // Verificar que el píxel esté dentro de los límites de la imagen
                 if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
                     Color colorVecino = pixelReader.getColor(newX, newY);
                     totalRed += colorVecino.getRed();
@@ -205,7 +193,6 @@ public class EditImageTask extends Task<Image> {
             }
         }
 
-        // Calcular el color promedio
         double medRed = totalRed / Pixels;
         double medGreen = totalGreen / Pixels;
         double medBlue = totalBlue / Pixels;

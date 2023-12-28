@@ -22,10 +22,12 @@ public class Memo implements JsonSerializable{
     private boolean invertV;
     @JsonProperty
     private boolean blurred;
+    @JsonProperty
+    private LocalDate date;
 
 
 
-    public Memo(String pathOriginal, boolean bAndW, boolean invertColors, boolean shineUp, boolean invertH, boolean invertV, boolean blurred) {
+    public Memo(String pathOriginal, boolean bAndW, boolean invertColors, boolean shineUp, boolean invertH, boolean invertV, boolean blurred, LocalDate date) {
         this.pathOriginal = pathOriginal;
         this.bAndW = bAndW;
         this.invertColors = invertColors;
@@ -33,6 +35,7 @@ public class Memo implements JsonSerializable{
         this.invertH = invertH;
         this.invertV = invertV;
         this.blurred = blurred;
+        this.date = date;
 
     }
 
@@ -65,6 +68,7 @@ public class Memo implements JsonSerializable{
         return blurred;
     }
 
+    public LocalDate getDate() { return date; }
 
 
 }

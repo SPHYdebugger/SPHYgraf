@@ -1,4 +1,4 @@
-package com.home.sphygraf;
+package com.home.sphygraf.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,29 +56,24 @@ public class MultiController implements Initializable {
 
     @FXML
     protected void selectOneFile() {
-        // Cuadro de diálogo para seleccionar imágenes
+        // seleccionar una imagen
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.gif"));
 
         File selectedFile = fileChooser.showOpenDialog(null);
 
-        // Verificar si se seleccionó un archivo
+
         if (selectedFile != null) {
             // Crear una nueva pestaña
             Tab newTab = new Tab(selectedFile.getName());
-
-            // Crear una nueva imagen para esta pestaña
             Image imageTab = new Image(selectedFile.toURI().toString());
 
-            // Cargar el controlador de la pestaña
             FXMLLoader loader = new FXMLLoader(getClass().getResource("editImage.fxml"));
             loader.setController(new EditController(imageTab, selectedFile.getPath()));
 
             try {
-                // Establecer el contenido de la pestaña
-                newTab.setContent(loader.load());
 
-                // Agregar la nueva pestaña al TabPane
+                newTab.setContent(loader.load());
                 tpEditImage.getTabs().add(newTab);
 
                 // Seleccionar la nueva pestaña
@@ -222,20 +217,15 @@ public class MultiController implements Initializable {
     @FXML
     protected void showHistory() {
         try {
-            // Cargar el archivo FXML de la vista del historial
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("list.fxml"));
             VBox historyView = loader.load();
 
-            // Crear una nueva pestaña
             Tab newTab = new Tab("Historial");
-
-            // Configurar el contenido de la pestaña
             newTab.setContent(historyView);
 
             // Agregar la nueva pestaña al TabPane
             tpEditImage.getTabs().add(newTab);
-
-            // Seleccionar la nueva pestaña
             tpEditImage.getSelectionModel().select(newTab);
 
         } catch (IOException e) {
@@ -247,6 +237,7 @@ public class MultiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //que se puedan cerrar las pestañas
         this.tpEditImage.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
     }
 }

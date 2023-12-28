@@ -1,4 +1,4 @@
-package com.home.sphygraf;
+package com.home.sphygraf.controller;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.fxml.FXML;
@@ -21,14 +21,14 @@ public class HelloControler implements Initializable {
 
     private Stage primaryStage;
 
-    // Establecer e iniciar el Stage
+
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
     @FXML
     protected void startApp() {
         try {
-            //cargar el fxml (Escena)
+            //cargar el fxml
             FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("multi.fxml"));
             // definir el controlador
             secondLoader.setController(new MultiController());

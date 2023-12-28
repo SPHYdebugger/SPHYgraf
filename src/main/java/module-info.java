@@ -12,5 +12,7 @@ module com.home.sphygraf {
     opens com.home.sphygraf to javafx.fxml;
     exports com.home.sphygraf;
     opens com.home.sphygraf.db to com.fasterxml.jackson.databind;
+    exports com.home.sphygraf.controller;
+    opens com.home.sphygraf.controller to javafx.fxml;
 
 }

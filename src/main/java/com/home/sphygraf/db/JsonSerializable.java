@@ -23,13 +23,11 @@ public interface JsonSerializable {
 
     default void saveJsonToFile(String json) {
         try {
-            // Lee el historial
-            List<String> existingHistory = loadJsonFromFile();
 
-            // Añadir el nuevo registro
+            List<String> existingHistory = loadJsonFromFile();
             existingHistory.add(json);
 
-            // Guardar el historial actualizado en el archivo
+            //Guardar historial actualizado
             objectMapper.writeValue(new File("history.json"), existingHistory);
         } catch (IOException e) {
             throw new RuntimeException("Error al guardar en el archivo JSON: " + e.getMessage(), e);
