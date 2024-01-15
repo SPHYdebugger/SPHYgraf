@@ -1,5 +1,6 @@
 package com.home.sphygraf.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -233,7 +234,10 @@ public class MultiController implements Initializable {
         }
     }
 
-
+    @FXML
+    public void exitApplication (ActionEvent event){
+        Platform.exit();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
