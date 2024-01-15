@@ -41,7 +41,7 @@ public class EditImageTask extends Task<Image> {
 
         // Simular una tarea lenta de 1 minuto
         for (int i = 0; i < 60; i++) {
-            Thread.sleep(100);  // Esperar 1 segundo
+            Thread.sleep(1000);  // Esperar 1 segundo
             double progress = (i + 1) * 100.0 / 60.0;
             updateProgress(i + 1, 60);
             updateMessage(String.format("%.1f%%", progress));

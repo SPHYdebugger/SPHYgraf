@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EditController implements Initializable {
 
@@ -52,6 +53,9 @@ public class EditController implements Initializable {
     private String pathOriginal;
     private Image editedImage;
     EditImageTask editImageTask;
+
+    private int taskMax = 5;
+    private static final AtomicInteger activeThreadCount = new AtomicInteger(0);
 
     public void setbAndW(CheckBox bAndW) {
         this.bAndW = bAndW;
@@ -91,6 +95,14 @@ public class EditController implements Initializable {
     @FXML
     public void applyFilters() {
 
+        if (activeThreadCount.get() >= taskMax) {
+            // Si el número de hilos activos es mayor o igual a 5, muestra un mensaje y no inicia más hilos.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Se ha alcanzado el límite máximo de hilos concurrentes.");
+            alert.show();
+            return;
+        }
+
         Image imagenOrigen = originalImageSelected;
 
         //Crea una nuevo hilo
@@ -101,8 +113,16 @@ public class EditController implements Initializable {
         progress.setVisible(true);
         progress.progressProperty().bind(editImageTask.progressProperty());
 
+        editImageTask.setOnRunning(event -> {
+            // Incrementa el contador cuando la tarea comienza a ejecutarse
+            activeThreadCount.incrementAndGet();
+        });
 
         editImageTask.setOnSucceeded(event -> {
+
+            // Decrementa el contador cuando la tarea se completa
+            activeThreadCount.decrementAndGet();
+
             editedImage = editImageTask.getValue();
             finalImage.setImage(editedImage);
             saveImage.setVisible(true);
@@ -122,7 +142,7 @@ public class EditController implements Initializable {
         new Thread(editImageTask).start();
     }
 
-    //TODO insertar boton de cancelar
+
 
     @FXML
     public void saveImage() throws IOException {
@@ -168,6 +188,8 @@ public class EditController implements Initializable {
         applyBlurred.setSelected(false);
         InvertH.setSelected(false);
         InvertV.setSelected(false);
+
+        activeThreadCount.decrementAndGet();
 
         finalImage.setImage(null);
         saveImage.setVisible(false);
