@@ -1,6 +1,7 @@
 package com.home.sphygraf;
 
 
+import com.home.sphygraf.controller.HelloControler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,13 +20,12 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Cargar el fxml
-        FXMLLoader uiLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-        //definir el controlador de la escena
+        //Cargar el fxml y definir el controlador
+        FXMLLoader uiLoader = new FXMLLoader(getClass().getResource("controller/hello-view.fxml"));
         uiLoader.setController(new HelloControler());
         //Mostrar la escena
         Scene helloScene = new Scene(uiLoader.load());
-        primaryStage.getIcons().add(new Image("C:\\Users\\sanph\\IdeaProjects\\SphyGraf\\src\\main\\resources\\com\\home\\sphygraf\\Diseno-sin-texto.jpg"));
+        primaryStage.getIcons().add(new Image("C:\\Users\\sanph\\IdeaProjects\\SphyGraf\\src\\main\\resources\\com\\home\\sphygraf\\images\\Diseno-sin-texto.jpg"));
         primaryStage.setTitle("SPHYgraf V1.0");
         primaryStage.setScene(helloScene);
         primaryStage.show();

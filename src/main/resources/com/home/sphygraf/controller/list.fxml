@@ -6,7 +6,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.home.sphygraf.ListController">
+      fx:controller="com.home.sphygraf.controller.ListController">
 
    <Label text="Historial de Ediciones"/>
    <ListView fx:id="historyView"/>

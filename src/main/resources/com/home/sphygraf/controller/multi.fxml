@@ -17,6 +17,11 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
+
+<!-- Esta escena es una que he cogido de Scenne Builder y la he adaptado.
+  Creo que queda muy profesional-->
+
+
 <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="1000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <VBox>
@@ -37,7 +42,7 @@
                 <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" text="Preferences…" />
                 <SeparatorMenuItem mnemonicParsing="false" />
-                <MenuItem mnemonicParsing="false" text="Quit" />
+                <MenuItem mnemonicParsing="false" onAction="#exitApplication" text="Quit" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
@@ -73,6 +78,7 @@
             <CheckBox fx:id="invertColors" layoutX="306.0" layoutY="18.0" mnemonicParsing="false" text="InvertColors" visible="false" />
             <CheckBox fx:id="shineUp" layoutX="407.0" layoutY="18.0" mnemonicParsing="false" text="ShineUp" visible="false" />
             <CheckBox fx:id="applyBlurred" layoutX="520.0" layoutY="18.0" mnemonicParsing="false" text="Blurred" visible="false" />
+            <Button fx:id="applyDirectory" layoutX="894.0" layoutY="14.0" mnemonicParsing="false" onAction="#launchDirectoryEdit" text="Select directory" visible="false" />
             <Button fx:id="applyMulti" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#launchBatchEdit" text="Select files" visible="false" />
           </children>
         </AnchorPane>

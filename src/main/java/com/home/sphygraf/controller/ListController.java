@@ -1,4 +1,4 @@
-package com.home.sphygraf;
+package com.home.sphygraf.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,25 +28,20 @@ public class ListController implements Initializable {
         loadHistoryToListView();
     }
 
-    // Método para cargar el historial desde el archivo y mostrarlo en el ListView
+
     private void loadHistoryToListView() {
-        // Obtener el historial desde el método loadJsonFromFile
         List<String> historyList = loadJsonFromFile();
-
-        // Mostrar el historial en el ListView
         historyView.getItems().addAll(historyList);
-
     }
 
     private List<String> loadJsonFromFile() {
         try {
             File file = new File("history.json");
-
             if (!file.exists()) {
                 return new ArrayList<>();
             }
 
-            // Convertir la lista de Memo a una lista de cadenas JSON
+            // convertir los registros para visualizarlos
             return objectMapper.readValue(file, new TypeReference<List<String>>() {});
 
         } catch (IOException e) {
